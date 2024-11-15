@@ -17,3 +17,5 @@ enjoy the charts :D
 streamlit run frontend.py
 ```
 to run the code and see the results 
+
+![Screenshot from 2024-11-15 15-31-28](https://github.com/user-attachments/assets/f68d4482-83be-4fc1-bc22-89a2041c4180)
