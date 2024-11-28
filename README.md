@@ -20,5 +20,4 @@ to run the code and see the results ( in the ) ScrapingUTMB folder
 
 ### All the data are in json format in the ScrapingUTMB/data_races folder
 
-
-![Screenshot from 2024-11-15 15-31-28](https://github.com/user-attachments/assets/f68d4482-83be-4fc1-bc22-89a2041c4180)
+![Screenshot from 2024-11-28 14-04-28](https://github.com/user-attachments/assets/35c6eec5-d0f2-48e4-940b-1bec0cbdad61)
