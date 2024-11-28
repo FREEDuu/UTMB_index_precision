@@ -3,7 +3,7 @@ from pydantic.dataclasses import dataclass
 from bs4 import BeautifulSoup
 import json
 from typing import List, Dict
-from util.utils import get_plot_data
+from util.utils import get_plot_data, find_exact_x, seconds_to_hms
 import os
 
 BASE_URL : str = 'https://api.utmb.world' 
@@ -58,17 +58,17 @@ class Scraper_UTMB_Api:
         return dict_race # return a dict with key value of name_runner --> [ time in the specific race, UTMB index ]
     
     @staticmethod
-    def get_plots_data_race_fromJson(Json_path : str, debug : bool = True):
+    def get_plots_data_race_fromJson(race_path : str, debug : bool = True):
     
         if debug:
-            print('TEST -> ', Json_path)
-        with open('./data_races/'+Json_path, "r") as file:
+            print('TEST -> ', race_path)
+        with open('./data_races/'+race_path, "r") as file:
             data = json.load(file)
 
         return get_plot_data(data)
     
     @staticmethod
-    def UTMB_precision(race):
+    def UTMB_precision(race_path):
 
         folder_path = './data_races'
         file_json = os.listdir(folder_path)
@@ -79,6 +79,13 @@ class Scraper_UTMB_Api:
             times, indexs, _, _, _, _, outlier_count =  Scraper_UTMB_Api.get_plots_data_race_fromJson(json_data)
             err.append(outlier_count/len(indexs) * 100)
 
-            if json_data == race:
+            if json_data == race_path:
                 err_race.append([outlier_count, len(times)])
         return err, err_race[0][0], err_race[0][1]
+    
+    @staticmethod
+    def estimate_time_race(utmb_index_input : int, race_path : str) -> int :
+
+        times, _ , predict_y , _ , _ , _ , _ = Scraper_UTMB_Api.get_plots_data_race_fromJson(race_path)
+        prediction = int(find_exact_x(times, predict_y, utmb_index_input))
+        return prediction
